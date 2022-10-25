@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block llista %}
+
+{%- for joc in jocs -%}
+<h2>{{ joc.get("name") }}</h2>
+<ul>
+    <li>{{ joc.get("year") }}</li>
+    <li>{{ joc.get("systems") }}</li>
+    <li>{{ joc.get("developer") }}</li>
+    <li>{{ joc.get("genre") }}</li>
+</ul>
+<p>
+    <img src={{joc.get("imageURL")}} width="30%" height="30%">
+</p>
+
+
+<p>
+    {{joc.get("description")}}
+</p>
+{%- endfor -%}
+
+{% endblock %}

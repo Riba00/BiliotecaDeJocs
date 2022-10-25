@@ -1,0 +1,28 @@
+from jinja2 import Environment, FileSystemLoader
+import xml.etree.ElementTree as ET
+
+#Escollim el template
+environment = Environment(loader=FileSystemLoader("templates/"))
+template = environment.get_template("t2.txt")
+
+#Obrim el XML
+tree = ET.parse("data.xml")
+root = tree.getroot()
+jocs = []
+dades = {}
+dadesTemp = {}
+for games in tree.iter("game"):
+    for child in games.iter():
+        if(child.tag!="game"):
+            dades[child.tag] = child.text
+        else:
+            dades['numeroJoc'] = child.get('id')
+    dadesTemp= dades.copy()
+    dades.clear()
+    jocs.append(dadesTemp)
+
+file = open("html1.html","w")
+for j in jocs:
+    contingut = template.render(j)
+    file.write(contingut)
+file.close()
